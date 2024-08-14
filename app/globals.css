@@ -3,8 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 255, 255, 255
-  --background-start-rgb: 23, 23, 23;
+  --foreground-rgb: 255, 255, 255 --background-start-rgb: 23, 23, 23;
   --background-end-rgb: 23, 23, 23;
 }
 
@@ -13,3 +12,28 @@ body {
   background: rgb(var(--background-end-rgb));
 }
 
+.markdown>* {
+  all: revert;
+}
+
+pre div {
+  border: none 1px solid;
+  border-radius: 7px;
+  color: white;
+  background: rgb(8, 8, 71);
+  text-shadow: #1e1919 0px 1px;
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  font-size: 1em;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  overflow-wrap: normal;
+  line-height: 1.5;
+  tab-size: 4;
+  hyphens: none;
+  padding: 1em;
+  margin: 0.5em 0px;
+  overflow: auto;
+
+}

@@ -82,45 +82,58 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
+import CopyButton from './CopyButton';
 
 const CodeBlock = ({ language, value }: { language?: string; value: string }) => {
   return (
-    <pre className=" text-white py-4 rounded-lg">
+    <div className="relative bg-transparent group">
       <SyntaxHighlighter language={language || 'javascript'} style={oneDark}>
         {value}
       </SyntaxHighlighter>
-    </pre>
+      <CopyButton value={value} /> {/* Place CopyButton at the top-right inside the code block */}
+    </div>
   );
 };
 
-const Content =  ({ content }: { content: string }) => (
-  <div className='max-w-3xl mx-auto text-text-primary text-xl' >
-    <ReactMarkdown
-      className='markdown'
-      remarkPlugins={[remarkGfm]}
-      // rehypePlugins={[rehypeRaw]}
-      components={{
-        code({ node, className, children, ...props }) {
-          const language = className?.replace(/language-/, '');
-          return language ? (
-            <CodeBlock language={language} value={String(children).trim()} />
-          ) : (
-            <code className={className} {...props}>
-              {children}
-            </code>
-          );
-        },
-        // h1: ({ node, ...props }) => <h1 className="text-5xl font-bold my-4" {...props} />,
-        // h2: ({ node, ...props }) => <h2 className="text-4xl font-semibold my-3" {...props} />,
-        // h3: ({ node, ...props }) => <h2 className="text-3xl font-semibold my-3" {...props} />,
-        // p: ({ node, ...props }) => <p className="text-xl text-white my-2" {...props} />,
-        // a: ({ node, ...props }) => <a className="text-blue-500 hover:text-blue-700 underline" {...props} />
-        // div: ({ node, ...props }) => <div className='markdown' ></div>
-      }}
-    >
-      {content}
-    </ReactMarkdown>
-  </div>
-);
+// const Pre = ({ children, ...props }: React.HTMLAttributes<HTMLPreElement>) => {
+//   return (
+//     <pre {...props} className={`blog-pre ${props.className || ''}`}>
+//       <CopyButton>{children}</CopyButton>
+//       {children}
+//     </pre>
+//   );
+// };
+const Content = ({ content }: { content: string }) => {
+
+  return (
+    <div className='max-w-3xl mx-auto text-text-primary text-xl' >
+      <ReactMarkdown
+        className='markdown'
+        remarkPlugins={[remarkGfm]}
+        // rehypePlugins={[rehypeRaw]}
+        components={{
+          code({ node, className, children, ...props }) {
+            const language = className?.replace(/language-/, '');
+            return language ? (
+              <CodeBlock language={language} value={String(children).trim()} />
+            ) : (
+              <code className={className} {...props}>
+                {children}
+              </code>
+            );
+          },
+          // h1: ({ node, ...props }) => <h1 className="text-5xl font-bold my-4" {...props} />,
+          // h2: ({ node, ...props }) => <h2 className="text-4xl font-semibold my-3" {...props} />,
+          // h3: ({ node, ...props }) => <h2 className="text-3xl font-semibold my-3" {...props} />,
+          // p: ({ node, ...props }) => <p className="text-xl text-white my-2" {...props} />,
+          // a: ({ node, ...props }) => <a className="text-blue-500 hover:text-blue-700 underline" {...props} />
+          // div: ({ node, ...props }) => <div className='markdown' ></div>
+        }}
+      >
+        {content}
+      </ReactMarkdown>
+    </div>
+  )
+};
 
 export default Content
